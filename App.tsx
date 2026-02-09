@@ -23,7 +23,6 @@ import {
 } from './services/supabase';
 import { analyzeUserHabits } from './services/gemini';
 import { LogOut, Menu, Shield, Loader2, Bell, Zap, X, CheckCircle2, Cloud, CloudOff, FileText } from 'lucide-react';
-import { Session } from '@supabase/supabase-js';
 import { getTranslation } from './services/translations';
 
 // Lazy load heavy components
@@ -73,7 +72,7 @@ function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isTemplatesOpen, setIsTemplatesOpen] = useState(false);
 
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<any | null>(null);
   // JUDGE MODE: Default isGuest to true to bypass AuthScreen
   const [isGuest, setIsGuest] = useState(true);
   const [authInitialized, setAuthInitialized] = useState(false);

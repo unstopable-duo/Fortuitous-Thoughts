@@ -120,7 +120,7 @@ export const signInWithGoogle = async () => {
     safeSetItem('ft_mock_session', JSON.stringify(mockSession));
     return { data: { user: mockUser, session: mockSession }, error: null };
   }
-  return await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } });
+  return await (supabase.auth as any).signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } });
 };
 
 export const signInWithEmail = async (email: string, password: string) => {
@@ -139,7 +139,7 @@ export const signInWithEmail = async (email: string, password: string) => {
     }
     return { data: { user: null, session: null }, error: { message: "Invalid login credentials" } };
   }
-  return await supabase.auth.signInWithPassword({ email, password });
+  return await (supabase.auth as any).signInWithPassword({ email, password });
 };
 
 export const signUpWithEmail = async (email: string, password: string, username: string) => {
@@ -156,12 +156,12 @@ export const signUpWithEmail = async (email: string, password: string, username:
      safeSetItem('ft_mock_session', JSON.stringify(mockSession));
      return { data: { user: newUser, session: mockSession }, error: null };
   }
-  return await supabase.auth.signUp({ email, password, options: { data: { username } } });
+  return await (supabase.auth as any).signUp({ email, password, options: { data: { username } } });
 };
 
 export const signOut = async () => {
   if (isMockMode || !supabase) { localStorage.removeItem('ft_mock_session'); return { error: null }; }
-  return await supabase.auth.signOut();
+  return await (supabase.auth as any).signOut();
 };
 
 export const getCurrentSession = async () => {
@@ -170,7 +170,7 @@ export const getCurrentSession = async () => {
     if (stored) return { session: JSON.parse(stored), error: null };
     return { session: null, error: null };
   }
-  const { data: { session }, error } = await supabase.auth.getSession();
+  const { data: { session }, error } = await (supabase.auth as any).getSession();
   return { session, error };
 };
 
