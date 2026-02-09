@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fortuitous Thoughts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              canvas: 'var(--canvas)',
+              surface: 'var(--surface)',
+              border: 'var(--border)',
+              accent: {
+                DEFAULT: 'var(--color-accent)', 
+                hover: 'var(--color-accent-hover)',
+                glow: 'var(--color-accent-glow)'
+              },
+              text: {
+                main: 'var(--text-main)',
+                muted: 'var(--text-muted)',
+              },
+              highlight: '#fbbf24',
+              navy: { 900: '#0f172a' }
+            },
+            animation: {
+              'blob': 'blob 7s infinite',
+              'gradient-x': 'gradient-x 15s ease infinite',
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            keyframes: {
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              'gradient-x': {
+                '0%, 100%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'left center'
+                },
+                '50%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'right center'
+                },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              'pulse-glow': {
+                '0%, 100%': { opacity: 1, boxShadow: '0 0 20px rgba(129, 140, 248, 0.2)' },
+                '50%': { opacity: .5, boxShadow: '0 0 40px rgba(129, 140, 248, 0.6)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&family=Libre+Baskerville:ital@0;1&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --canvas: #f8fafc;
+        --surface: #ffffff;
+        --border: #e2e8f0;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        
+        /* Default Indigo Theme */
+        --color-accent: #818cf8;
+        --color-accent-hover: #6366f1;
+        --color-accent-glow: rgba(129, 140, 248, 0.5);
+      }
+      
+      .dark {
+        --canvas: #0f172a;
+        --surface: #1e293b;
+        --border: #334155;
+        --text-main: #f1f5f9;
+        --text-muted: #94a3b8;
+      }
+
+      body { 
+        font-family: 'Inter', sans-serif; 
+        background-color: var(--canvas); 
+        color: var(--text-main); 
+        transition: background-color 0.5s ease, color 0.5s ease;
+      }
+      
+      h1, h2, h3, .brand-font {
+        font-family: 'Outfit', sans-serif;
+      }
+
+      .font-serif { font-family: 'Libre Baskerville', serif; }
+      .font-mono { font-family: 'Fira Code', monospace; }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .glass-card {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      }
+
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(to right, var(--color-accent), #c084fc, #f472b6);
+      }
+
+      /* Card Flip Animation */
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .transform-style-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+      .rotate-y-180 {
+        transform: rotateY(180deg);
+      }
+      
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+      
+      .markdown-body b { font-weight: 700; color: var(--color-accent); }
+      .markdown-body i { font-style: italic; opacity: 0.9; }
+      .markdown-body ul { list-style-type: disc; margin-left: 1.5rem; }
+      
+      .toggle-checkbox {
+        appearance: none;
+        width: 40px;
+        height: 24px;
+        border-radius: 12px;
+        background: var(--border);
+        position: relative;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .toggle-checkbox:checked {
+        background: var(--color-accent);
+      }
+      .toggle-checkbox::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: white;
+        transition: transform 0.3s;
+      }
+      .toggle-checkbox:checked::after {
+        transform: translateX(16px);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.91.1",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "uuid": "https://esm.sh/uuid@^13.0.0",
+    "dompurify": "https://esm.sh/dompurify@3.0.9",
+    "mammoth": "https://esm.sh/mammoth@1.6.0",
+    "pdfjs-dist": "https://esm.sh/pdfjs-dist@3.11.174"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

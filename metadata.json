@@ -1,0 +1,8 @@
+{
+  "name": "Fortuitous Thoughts 2.0",
+  "description": "An AI-powered personal knowledge management system that acts as a thinking partner.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
